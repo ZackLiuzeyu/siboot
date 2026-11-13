@@ -137,7 +137,9 @@ pub async fn sign(session: &mut Session, ipa: &Path, device: &DeviceInfo) -> Res
         .sign_app(
             ipa.to_path_buf(),
             None,
-            MemoryLimit::Off,
+            // Request the capability before fetching the profile. Keep the
+            // install usable if Apple declines the request for this team.
+            MemoryLimit::Preferred,
             true,
             Some((device.name.as_str(), device.udid.as_str())),
             None,
