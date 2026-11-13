@@ -33,3 +33,10 @@ jobs:
           readelf -h "$bin" | grep -q AArch64
           ! readelf -l "$bin" | grep -q INTERP
           "$bin" --help
+      - name: Save the ARM64 test build
+        uses: actions/upload-artifact@v4
+        with:
+          name: siboot-minis-arm64-test
+          path: minis/target/aarch64-unknown-linux-musl/release/siboot
+          if-no-files-found: error
+          retention-days: 1
